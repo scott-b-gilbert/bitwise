@@ -64,18 +64,18 @@ int print_conversions(uint64_t val, bool si)
 
 	printf("\n%sBinary:\n%s", color_green, color_reset);
 	for (i = g_width; i > 0; i--) {
-		if ((i % 8 == 0) && (i != g_width)) {
+		if ((i % 4 == 0) && (i != g_width)) {
 			pos += sprintf(&binary[pos], "%s", color_white);
 			binary[pos] = '|';
 			binary[pos + 1] = ' ';
 			pos += 2;
 		}
 		if (val & BIT(i - 1)) {
-			pos += sprintf(&binary[pos], "%s", color_blue);
+			pos += sprintf(&binary[pos], "%s", color_red);
 			binary[pos] = '1';
 		}
 		else {
-			pos += sprintf(&binary[pos], "%s", color_magenta);
+			pos += sprintf(&binary[pos], "%s", color_white);
 			binary[pos] = '0';
 		}
 		binary[pos + 1] = ' ';
@@ -83,12 +83,12 @@ int print_conversions(uint64_t val, bool si)
 	}
 
 	binary[pos-1] = '\0';
-	printf("%s\n    ", binary);
+	printf("%s\n     ", binary);
 	fputs(color_cyan, stdout);
-	for (i = 0; i < g_width / 8; i++) {
-		printf("%2d - %2d", g_width - 1 - (i * 8), (g_width - 8) - (i * 8));
-		if (i != (g_width / 8) - 1)
-			for (j = 0; j < 11; j++)
+ 	for (i = 0; i < g_width / 4; i++) {
+ 		printf("%2d", g_width - 4 - (i * 4));
+ 		if (i != (g_width / 4) - 1)
+ 			for (j = 0; j < 8; j++)
 				putchar(' ');
 	}
 	printf("\n");
